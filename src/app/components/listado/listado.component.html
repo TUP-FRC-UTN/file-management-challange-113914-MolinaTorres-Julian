@@ -7,7 +7,7 @@
                 Acciones
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Nuevo</a></li>
+                <li><a class="dropdown-item" (click)="toggleForm()">Nuevo</a></li>
                 <li><a class="dropdown-item" (click)="deleteSelectedFiles()">Borrar</a></li>
             </ul>
         </div>
@@ -50,3 +50,7 @@
         </tbody>
     </table>
 </div>
+
+@if (showForm === true) {
+    <app-form-archivo class="m-2" (fileAdded)="addFile($event)" (formClosed)="toggleForm()"></app-form-archivo>
+}

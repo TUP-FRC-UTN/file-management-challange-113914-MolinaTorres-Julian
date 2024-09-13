@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <h3>Agregar archivo/carpeta</h3>
+    <form (ngSubmit)="onSubmit()" #fileForm="ngForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="fileName" name="name" #name='ngModel'
+                required>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+                El nombre es requerido.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="creationDate" class="form-label">Fecha</label>
+            <input type="date" id="creationDate" class="form-control" [(ngModel)]="creationDate" name="creationDate"
+                #creationDate='ngModel' required>
+            <div *ngIf="creationDate.invalid && (creationDate.dirty || creationDate.touched)" class="invalid-feedback">
+                La fecha es requerida.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="fileType" class="form-label">Tipo de Archivo</label>
+            <select id="fileType" class="form-select" [(ngModel)]="fileType" name="fileType" #fileType="ngModel"
+                required>
+                <option [ngValue]="FileType.FOLDER">Carpeta</option>
+                <option [ngValue]="FileType.FILE">Archivo</option>
+            </select>
+            <div *ngIf="fileType.invalid && (fileType.dirty || fileType.touched)" class="invalid-feedback">
+                El tipo de archivo es requerido.
+            </div>
+        </div>
+
+        <div class="buttons-div d-flex justify-content-between">
+            <button class="btn btn-secondary">Volver</button>
+            <button type="submit" class="btn btn-primary" [disabled]="fileForm.invalid">Guardar</button>
+        </div>
+    </form>
+</div>
