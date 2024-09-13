@@ -1,0 +1,52 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+        <h1>Archivos</h1>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Acciones
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Nuevo</a></li>
+                <li><a class="dropdown-item" (click)="deleteSelectedFiles()">Borrar</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <table class="table table-striped">
+        <thead class="table">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Dueños</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of fileList; let i = index">
+                <td>
+                    <input type="checkbox" (change)="toggleSelection(file.id)" [checked]="selectedFiles.has(file.id)">
+                </td>
+                <td class="bi" [ngClass]="file.type === FileType.FOLDER ? 'bi-folder-fill' : 'bi-file-earmark-fill'">
+                    <span [title]="file.name" class="file-name">
+                        {{ file.name.length > 10 ? (file.name | slice:0:10) + '...' : file.name }}
+                    </span>
+                </td>
+                <td>{{file.creation | date: 'MMM d, yyyy'}}</td>
+                <td>
+                    <div *ngIf="file.owners.length > 0" class="d-flex align-items-center">
+                        <ng-container *ngFor="let owner of file.owners.slice(0, 3)">
+                            <img [src]="owner.avatarUrl" width="30" class="rounded-circle" />
+                        </ng-container>
+                        <ng-container *ngIf="file.owners.length > 3">
+                            <div class="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
+                                style="width: 30px; height: 30px;">
+                                +{{file.owners.length - 3}}
+                            </div>
+                        </ng-container>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
